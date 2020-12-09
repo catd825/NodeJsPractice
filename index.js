@@ -2,8 +2,9 @@ const express = require('express');
 //gives us access to the express library
 const mongoose = require('mongoose')
 const keys = require('./config/keys')
+require('./models/User') //passport is using the model, so it MUST be defined first
 require('./services/passport')
-require('./models/User')
+
 
 mongoose.connect(keys.mongoURI)
 

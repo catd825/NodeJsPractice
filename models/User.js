@@ -13,3 +13,5 @@ const userSchema = new Schema({
 
 mongoose.model('users', userSchema);
 //mongoose model command creates a new collection called  users.  mongoose will not overwrite if something already exists.
+//this loads the schema into mongoose
+//1 argument means we are trying to fetch from mongoose (see passport.js), 2 arguments mean we are loading something into it
