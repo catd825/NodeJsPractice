@@ -1,6 +1,8 @@
 const express = require('express');
 //gives us access to the express library
 const mongoose = require('mongoose')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
 const keys = require('./config/keys')
 require('./models/User') //passport is using the model, so it MUST be defined first
 require('./services/passport')
@@ -10,6 +12,22 @@ mongoose.connect(keys.mongoURI)
 
 const app = express();
 //typically only has one app, but can have many
+
+app.use(
+    cookieSession({ 
+        //30 days: 30 days, 24 hrs, 60 min, 60 sec, 1000 miliseconds
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey] //allows multiple keys for additional security
+    })
+)
+
+app.use(passport.initialize());
+app.use(passport.session());
+//app.use wire up middleware (small functions used to modify incoming requests to our app before they go to route handlers)
+//we can wire them up once instead of at the top of every route handler
+
+
+
 
 require('./routes/authRoutes')(app);
 
