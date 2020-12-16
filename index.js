@@ -24,8 +24,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use wire up middleware (small functions used to modify incoming requests to our app before they go to route handlers)
-//we can wire them up once instead of at the top of every route handler
-
+//we can wire them up once instead of at the top of every route handler 
 
 
 
