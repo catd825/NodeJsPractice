@@ -15,13 +15,17 @@ module.exports = (app) => {
 
     app.get(
         '/auth/google/callback',
-        passport.authenticate('google')
+        passport.authenticate('google'), //at this endpoint, passing control of the user off to the passport auth funciton
+        (req, res) => {
+            res.redirect('/surveys')
+        }
     );
 
     app.get(
         '/api/logout', (req, res) => {
            req.logout(); //removes cookies from request object
-           res.send(req.user); //tells user they are not logged in
+           //res.send(req.user); //tells user they are not logged in
+           res.redirect('/')
         }
     )
 
