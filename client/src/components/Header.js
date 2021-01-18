@@ -43,4 +43,5 @@ function mapStateToProps({auth}){
   return{ auth: auth };
 } //same as passing through state and auth: auth.state
 
+
 export default connect(mapStateToProps)(Header);
