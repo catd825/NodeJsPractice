@@ -33,7 +33,9 @@ app.use(passport.session());
 
 
 require('./routes/authRoutes')(app);
-require('./routes/billingRoutes')(app, passport);
+require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app); //call the funciton with the app object
+
 
 if (process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
