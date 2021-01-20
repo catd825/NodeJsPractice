@@ -7,3 +7,5 @@ const surveySchema = new Schema({
     subject: String,
     recipients: [String]
 })
+
+mongoose.model('surveys', surveySchema)
