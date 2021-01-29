@@ -61,7 +61,7 @@ function validate(values){
     // if(!values.emails){
     //     errors.emails = 'You must provide emails!'
     // }
-    errors.emails = validateEmails(values.emails || '')
+    errors.emails = validateEmails(values.recipients || '')
     console.log(values)
     
     _.each(formFields, ({ name, noValueError }) => {
