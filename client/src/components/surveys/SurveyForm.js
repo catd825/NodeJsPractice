@@ -5,14 +5,7 @@ import { reduxForm, Field } from 'redux-form'
 import { Link } from 'react-router-dom'
 import SurveyField from './SurveyField'
 import validateEmails from '../../utils/validateEmails'
-
-const FIELDS = [
-    { label: 'Survey Title',  name: 'title', noValueError: 'Provide a survey title' },
-    { label: 'Subject Line',  name: 'subject', noValueError: 'Provide a subject' },
-    { label: 'Email Body',  name: 'body', noValueError: 'Provide the body of the email' },
-    { label: 'Recipient List',  name: 'emails', noValueError: 'provide list of recipients' }
-
-]
+import formFields from './formFields' //import constant from other file
 
 
 class SurveyForm extends Component {
@@ -25,7 +18,7 @@ class SurveyForm extends Component {
             //     <Field label="Recipient List" type="text" name="emails" component={SurveyField} />
             // </div>
         // )
-        return _.map(FIELDS, ({ label, name }) => { //used es6 syntax to destructure the field object into label and name properties
+        return _.map(formFields, ({ label, name }) => { //used es6 syntax to destructure the field object into label and name properties
             return <Field key={name} component={SurveyField} type="text" label={label} name={name}/>
         })
     }
@@ -34,7 +27,8 @@ class SurveyForm extends Component {
     render(){
         return (
             <div>
-                <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+                {/* <form onSubmit={this.props.handleSubmit(values => console.log(values))}> */}
+                <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
                     {/* <Field
                     type="text"
                     name="surveyTitle"
@@ -68,8 +62,9 @@ function validate(values){
     //     errors.emails = 'You must provide emails!'
     // }
     errors.emails = validateEmails(values.emails || '')
+    console.log(values)
     
-    _.each(FIELDS, ({ name, noValueError }) => {
+    _.each(formFields, ({ name, noValueError }) => {
         if (!values[name]){
             errors[name] = noValueError
         }
@@ -80,5 +75,6 @@ function validate(values){
 
 export default reduxForm({
     validate, // validate: validate,
-    form: 'surveyForm'
+    form: 'surveyForm',
+    destroyOnUnmount: false
 })(SurveyForm)
